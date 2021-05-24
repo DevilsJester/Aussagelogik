@@ -2,7 +2,7 @@ package de.hsrm.ads;
 
 public class LogicSolverGreedy {
 
-    //hallo
+    //hallo2
 
     static boolean satisfies(short[] assignment, short[] clause) {
         for (int i=0; i<clause.length; ++i)
