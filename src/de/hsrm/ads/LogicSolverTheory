@@ -1,0 +1,7 @@
+Gegeben sei eine Formel mit N Variablen und K Klauseln.
+Schätzen Sie die Worst-Case-Komplexität in Abhängigkeit von N und K ab, für.
+
+1. Das Greedy Verfahren
+2. Das Backtracking Verfahren
+
+
