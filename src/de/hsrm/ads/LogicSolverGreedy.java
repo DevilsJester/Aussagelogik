@@ -2,6 +2,8 @@ package de.hsrm.ads;
 
 public class LogicSolverGreedy {
 
+    //Testcomment
+
     static boolean satisfies(short[] assignment, short[] clause) {
         for (int i=0; i<clause.length; ++i)
             if(assignment[i]*clause[i]==1)
