@@ -25,7 +25,7 @@ public class LogicSolverGreedy {
         return false;
         // FIXME
     }
-
+    //test ronny
     static short[] solveGreedy(short[][] formula) {
         return null;
         // FIXME
