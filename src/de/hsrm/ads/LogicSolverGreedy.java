@@ -1,5 +1,7 @@
 package de.hsrm.ads;
 
+import java.util.Arrays;
+
 public class LogicSolverGreedy {
 
 
@@ -27,7 +29,7 @@ public class LogicSolverGreedy {
     static boolean satisfiable(short[] assignment, short[] clause) {
         if(satisfies(assignment,clause)) return true;
         boolean res = false;
-        short[] copy = assignment.clone();
+        //short[] copy = assignment.clone();
 
         int c = 0;
         for(var ass:assignment) {
@@ -38,7 +40,7 @@ public class LogicSolverGreedy {
             for(int j = 0, p = 0; j < assignment.length; j++) {
                 if(temp[j] == 0 && i==p) {
                     temp[j] = 1;
-                    if(p==i) p=0;
+                    p=0;
                 }
                 else if(temp[j]==0){
                     temp[j] = -1;
@@ -53,7 +55,7 @@ public class LogicSolverGreedy {
             for(int j = 0, p = 0; j < assignment.length; j++) {
                 if(temp[j] == 0 && i==p) {
                     temp[j] = -1;
-                    if(p==i) p=0;
+                    p=0;
                 }
                 else if(temp[j]==0){
                     temp[j] = 1;
@@ -68,7 +70,7 @@ public class LogicSolverGreedy {
 
     static boolean satisfiable(short[] assignment, short[][] formula) {
         for(int i = 0; i < formula.length; i++) {
-            short temp[] = formula[i];
+            short[] temp = formula[i];
             if(!satisfiable(assignment,temp)) return false;
         }
         return true;
@@ -76,6 +78,21 @@ public class LogicSolverGreedy {
     }
     //test ronny
     static short[] solveGreedy(short[][] formula) {
+
+        System.out.println(Arrays.deepToString(formula));
+        short[] assignment = new short[formula[0].length];
+
+        /*for(int i = 0; i < assignment.length; i++){ //fill array with -1 (cannot use Arrays.fill())
+            assignment[i] = -1;
+        }*/
+
+        for(int i = 0; i < assignment.length; i++){
+            short[] temp = assignment.clone();
+            for(int j = i; j < assignment.length; j++){
+
+            }
+        }
+
         return null;
         // FIXME
     }
