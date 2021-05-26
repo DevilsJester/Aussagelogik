@@ -13,23 +13,16 @@ public class LogicSolverGreedy {
     }
 
     static boolean satisfies(short[] assignment, short[][] formula) {
-        int c = 0;
         for(int i = 0; i < formula.length; i++) {
-            short temp[] = formula[i];
+            short[] temp = formula[i];
             if(!satisfies(assignment,temp)) return false;
-            for(int j = 0; j < formula[i].length;j++) {
-                if(assignment[i]*formula[i][j]==1) c++;
-            }
         }
-
         return true;
-        // FIXME
     }
 
     static boolean satisfiable(short[] assignment, short[] clause) {
         if(satisfies(assignment,clause)) return true;
         boolean res = false;
-        //short[] copy = assignment.clone();
 
         int c = 0;
         for(var ass:assignment) {
@@ -74,26 +67,33 @@ public class LogicSolverGreedy {
             if(!satisfiable(assignment,temp)) return false;
         }
         return true;
-        // FIXME
     }
-    //test ronny
+
     static short[] solveGreedy(short[][] formula) {
 
-        System.out.println(Arrays.deepToString(formula));
+        System.out.println(Arrays.deepToString(formula)); //FIXME only for testing, remove in build
         short[] assignment = new short[formula[0].length];
 
-        /*for(int i = 0; i < assignment.length; i++){ //fill array with -1 (cannot use Arrays.fill())
-            assignment[i] = -1;
-        }*/
+        //if(satisfiable(assignment,formula))return assignment; // return zero array if no solution is possible
 
-        for(int i = 0; i < assignment.length; i++){
-            short[] temp = assignment.clone();
-            for(int j = i; j < assignment.length; j++){
-
+        for(int i = 0; i < formula.length; i++){
+            short[] temp = new short[formula[i].length];
+            if(satisfiable(temp,formula[i])){
+                for(int j = 0; j < temp.length; j++){
+                        if((j+2)%2 == 0)temp[j] = 1;
+                        else temp[j] = -1;
+                    if(satisfies(temp,formula[i])){
+                        for(var t:temp){
+                            assignment[i] = t;
+                        }
+                    }
+                }
             }
         }
 
-        return null;
+
+        System.out.println(Arrays.toString(assignment));
+        return assignment;
         // FIXME
     }
 }
