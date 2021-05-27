@@ -76,24 +76,30 @@ public class LogicSolverGreedy {
 
         //if(satisfiable(assignment,formula))return assignment; // return zero array if no solution is possible
 
-        for(int i = 0; i < formula.length; i++){
+        for(int i = 0; i < formula.length && i < formula[0].length; i++){
+
             short[] temp = new short[formula[i].length];
-            if(satisfiable(temp,formula[i])){
-                for(int j = 0; j < temp.length; j++){
-                        if((j+2)%2 == 0)temp[j] = 1;
-                        else temp[j] = -1;
-                    if(satisfies(temp,formula[i])){
-                        for(var t:temp){
-                            assignment[i] = t;
-                        }
-                    }
+            for(int j = 0; j < temp.length; j++){
+                if(formula[i][j] == 1)temp[j] = 1;
+                else if(formula[i][j] == -1)temp[j] = -1;
+                else {
+                    temp[j] = 0;
+                    continue;
+                }
+                if(temp[j] != 0)assignment[j] = temp[j];
+
+                System.out.println("Temp: " + Arrays.toString(temp));
+                if(satisfies(assignment,formula)){
+                    System.out.println("89: Returning: " + Arrays.toString(assignment));
+                    return assignment;
                 }
             }
+            //System.out.println("Temp: " + Arrays.toString(temp));
         }
 
-
-        System.out.println(Arrays.toString(assignment));
-        return assignment;
+        System.out.println("96: Returning: " + Arrays.toString(new short[formula[0].length]));
+        //if(!satisfies(assignment,formula))return new short[formula.length]; old check
+        return new short[formula[0].length];
         // FIXME
     }
 }
