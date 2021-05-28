@@ -20,7 +20,7 @@ public class LogicSolverGreedy {
         return true;
     }
 
-    static boolean satisfiable(short[] assignment, short[] clause) {
+    static boolean satisfiable(short[] assignment, short[] clause) { //todo fix this, this is absolutely terrible.
         if(satisfies(assignment,clause)) return true;
         boolean res = false;
 
@@ -71,35 +71,32 @@ public class LogicSolverGreedy {
 
     static short[] solveGreedy(short[][] formula) {
 
-        System.out.println(Arrays.deepToString(formula)); //FIXME only for testing, remove in build
+        System.out.println("Input Formula: " + Arrays.deepToString(formula) + "\nSolutions for Clauses:"); //FIXME only for testing, remove in build
         short[] assignment = new short[formula[0].length];
 
-        //if(satisfiable(assignment,formula))return assignment; // return zero array if no solution is possible
+        for(int i = 0; i < formula.length ; i++){
 
-        for(int i = 0; i < formula.length && i < formula[0].length; i++){
-
-            short[] temp = new short[formula[i].length];
+            short[] temp = assignment.clone();//new short[formula[i].length];
             for(int j = 0; j < temp.length; j++){
-                if(formula[i][j] == 1)temp[j] = 1;
-                else if(formula[i][j] == -1)temp[j] = -1;
+                if(satisfies(temp,formula[i]))break;
+                if(formula[i][j] != 0) temp[j] = formula[i][j];
                 else {
                     temp[j] = 0;
-                    continue;
+                    //continue;
                 }
-                if(temp[j] != 0)assignment[j] = temp[j];
+                if(temp[j] != 0) assignment[j] = temp[j];
 
-                System.out.println("Temp: " + Arrays.toString(temp));
-                if(satisfies(assignment,formula)){
-                    System.out.println("89: Returning: " + Arrays.toString(assignment));
-                    return assignment;
-                }
+                System.out.println("  ["+i+"]"+"["+j+"] = " + Arrays.toString(temp));
+                //if(satisfies(temp,formula[i]))break;
             }
-            //System.out.println("Temp: " + Arrays.toString(temp));
+            System.out.println("   Assignment=>" + Arrays.toString(assignment));
+            if(satisfies(assignment,formula)){
+                System.out.println("Solution found, returning: " + Arrays.toString(assignment));
+                return assignment;
+            }
         }
 
-        System.out.println("96: Returning: " + Arrays.toString(new short[formula[0].length]));
-        //if(!satisfies(assignment,formula))return new short[formula.length]; old check
+        System.out.println("No Solution was found, final state was: " + Arrays.toString(assignment));
         return new short[formula[0].length];
-        // FIXME
     }
 }
