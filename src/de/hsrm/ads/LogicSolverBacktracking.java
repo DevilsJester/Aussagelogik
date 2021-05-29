@@ -62,16 +62,16 @@ public class LogicSolverBacktracking {
     }
 
     static void solveBacktracking(short[][] formula, int currentLevel,short[] currentSolution) {
-        if(currentLevel == formula[0].length)return;
+        if(currentLevel == formula[0].length)return; //abort if we exceed the max length of variables
+
 
         currentSolution[currentLevel] = -1;
-        if(satisfiable(currentSolution,formula))solveBacktracking(formula,currentLevel+1,currentSolution);
+        if(satisfiable(currentSolution,formula))solveBacktracking(formula,currentLevel+1,currentSolution); // if possible path, run function recursively, one level deeper into the tree
         else {
             currentSolution[currentLevel] = 1;
             if(satisfiable(currentSolution,formula))solveBacktracking(formula,currentLevel+1,currentSolution);
         }
-        if(!satisfies(currentSolution,formula))Arrays.fill(currentSolution,(short) 0);
-        System.out.println(Arrays.toString(currentSolution));
+        if(currentLevel == 0 && !satisfies(currentSolution,formula))Arrays.fill(currentSolution,(short) 0); //if final solution does not satisfy, fill array with 0
     }
 
 }
