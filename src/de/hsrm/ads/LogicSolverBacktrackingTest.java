@@ -73,7 +73,7 @@ public class LogicSolverBacktrackingTest {
 	public void testBacktracking3() {
 		short[] result = LogicSolverBacktracking.solveBacktracking(formula3);
 		//assertTrue( Arrays.equals(new short[] {0,0}, result) );
-		check( "Backtracking Solution for ( -X1 v -X2 ) ^ ( -X1 v X2 ) ^ ( X1 v -X2 ) ^ ( X1 v X2 ) should be (0,0)!",
+		check( "Backtracking Solution for ( -X1 v -X2 ) ^ ( -X1 v X2 ) ^ ( X1 v -X2 ) ^ ( X1 v X2 ) should be (0,0), but was " + Arrays.toString(result),
 				new short[] {0,0}, result);
 	}
 
