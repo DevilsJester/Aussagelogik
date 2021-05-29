@@ -20,43 +20,32 @@ public class LogicSolverGreedy {
         return true;
     }
 
-    static boolean satisfiable(short[] assignment, short[] clause) { //todo fix this, this is absolutely terrible.
+    static boolean satisfiable(short[] assignment, short[] clause) { //consider this terribleness fixed
         if(satisfies(assignment,clause)) return true;
         boolean res = false;
+        short[] z = new short[assignment.length];
+        short[] Z = new short[assignment.length];
+    for(int i = 0, c = 0; i <clause.length; i++) {
+        if(assignment[i] == 0 && c == i) {
+            z[i] = 1;
+            Z[i] = -1;
+            c = 0;
+        }
+        if(assignment[i] == 0 && c != i) {
+            z[i] = -1;
+            Z[i] = 1;
+            c++;
+        }
+        if(assignment[i] != 0) {
+            z[i] = assignment[i];
+            Z[i] = assignment[i];
+        }
+        System.out.println("z = " + z.toString());
+        if(satisfies(z,clause) || satisfies(Z,clause)) res = true;
 
-        int c = 0;
-        for(var ass:assignment) {
-            if(ass == 0)c++;
-        }
-        for(int i = 0; i < c; i++) {
-            short[] temp = assignment.clone();
-            for(int j = 0, p = 0; j < assignment.length; j++) {
-                if(temp[j] == 0 && i==p) {
-                    temp[j] = 1;
-                    p=0;
-                }
-                else if(temp[j]==0){
-                    temp[j] = -1;
-                    p++;
-                }
-            }
-            if(satisfies(temp,clause)) res = true;
-        }
+    }
 
-        for(int i = 0; i < c; i++) {
-            short[] temp = assignment.clone();
-            for(int j = 0, p = 0; j < assignment.length; j++) {
-                if(temp[j] == 0 && i==p) {
-                    temp[j] = -1;
-                    p=0;
-                }
-                else if(temp[j]==0){
-                    temp[j] = 1;
-                    p++;
-                }
-            }
-            if(satisfies(temp,clause)) res = true;
-        }
+
         return res;
         // FIXME
     }
