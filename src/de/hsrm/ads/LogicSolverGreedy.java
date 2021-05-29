@@ -65,20 +65,16 @@ public class LogicSolverGreedy {
 
         for(int i = 0; i < formula.length ; i++){
 
-            short[] temp = assignment.clone();//new short[formula[i].length];
-            for(int j = 0; j < temp.length; j++){
-                if(satisfies(temp,formula[i]))break;
-                if(formula[i][j] != 0) temp[j] = formula[i][j];
-                else {
-                    temp[j] = 0;
-                    //continue;
-                }
-                if(temp[j] != 0) assignment[j] = temp[j];
+            //short[] temp = assignment.clone();//new short[formula[i].length];
+            for(int j = 0; j < assignment.length; j++){
+                if(satisfies(assignment,formula[i]))continue;
+                if(formula[i][j] != 0) assignment[j] = formula[i][j];
+                //if(temp[j] != 0) assignment[j] = temp[j];
 
-                System.out.println("  ["+i+"]"+"["+j+"] = " + Arrays.toString(temp));
+                System.out.println("  ["+i+"]"+"["+j+"] = " + Arrays.toString(assignment));
                 //if(satisfies(temp,formula[i]))break;
             }
-            System.out.println("   Assignment=>" + Arrays.toString(assignment));
+            //System.out.println("   Assignment=>" + Arrays.toString(assignment));
             if(satisfies(assignment,formula)){
                 System.out.println("Solution found, returning: " + Arrays.toString(assignment));
                 return assignment;
