@@ -1,7 +1,5 @@
 package de.hsrm.ads;
 
-import java.util.Arrays;
-
 public class LogicSolverGreedy {
 
 
@@ -20,7 +18,7 @@ public class LogicSolverGreedy {
         return true;
     }
 
-    static boolean satisfiable(short[] assignment, short[] clause) { //consider this terribleness fixed
+    static boolean satisfiable(short[] assignment, short[] clause) {
         if(satisfies(assignment,clause)) return true;
         boolean res = false;
         short[] z = new short[assignment.length];
@@ -40,14 +38,10 @@ public class LogicSolverGreedy {
             z[i] = assignment[i];
             Z[i] = assignment[i];
         }
-        System.out.println("z = " + z.toString());
         if(satisfies(z,clause) || satisfies(Z,clause)) res = true;
 
     }
-
-
         return res;
-        // FIXME
     }
 
     static boolean satisfiable(short[] assignment, short[][] formula) {
@@ -60,28 +54,19 @@ public class LogicSolverGreedy {
 
     static short[] solveGreedy(short[][] formula) {
 
-        System.out.println("Input Formula: " + Arrays.deepToString(formula) + "\nSolutions for Clauses:"); //FIXME only for testing, remove in build
         short[] assignment = new short[formula[0].length];
 
-        for(int i = 0; i < formula.length ; i++){
+        for(int i = 0; i < formula.length ; i++){ //iterate through all clauses of the formula
 
-            //short[] temp = assignment.clone();//new short[formula[i].length];
-            for(int j = 0; j < assignment.length; j++){
+            for(int j = 0; j < assignment.length; j++){ //iterate through all variables of clauses
                 if(satisfies(assignment,formula[i]))continue;
-                if(formula[i][j] != 0) assignment[j] = formula[i][j];
-                //if(temp[j] != 0) assignment[j] = temp[j];
-
-                System.out.println("  ["+i+"]"+"["+j+"] = " + Arrays.toString(assignment));
-                //if(satisfies(temp,formula[i]))break;
+                if(formula[i][j] != 0 && assignment[j] == 0) assignment[j] = formula[i][j];
             }
-            //System.out.println("   Assignment=>" + Arrays.toString(assignment));
             if(satisfies(assignment,formula)){
-                System.out.println("Solution found, returning: " + Arrays.toString(assignment));
                 return assignment;
             }
         }
 
-        System.out.println("No Solution was found, final state was: " + Arrays.toString(assignment));
-        return new short[formula[0].length];
+        return new short[formula[0].length]; //if no solution was found, return 0 array
     }
 }
