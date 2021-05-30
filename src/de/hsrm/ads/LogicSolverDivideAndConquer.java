@@ -17,6 +17,13 @@ public class LogicSolverDivideAndConquer {
 
 
     static short[][] solutionsForClause(short[] clause) {
+
+        short[][] solution = new short[clause.length*clause.length-1][clause.length];
+        short[] bits = new short[clause.length];
+
+
+
+
         return null;
         // FIXME
     }
