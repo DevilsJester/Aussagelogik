@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class LogicSolverDivideAndConquer {
 
 
-    /* Redundant class
+    /* Redundant, unused class
     static class ShortLinkedList {
         int level = 0;
         short head = Short.MIN_VALUE; //using min_value as a alternative to "null"
@@ -44,7 +44,7 @@ public class LogicSolverDivideAndConquer {
             return tail().last();
         }
 
-        short[] toShortArray(){
+        short[] toShortArray(){ //unfinished
             if(tail == null){
                 short[] t = new short[1];
                 t[0] = head;
@@ -80,7 +80,7 @@ public class LogicSolverDivideAndConquer {
     }
 
     static private void getNextBit(short[] input,int pos){
-        if(pos >= input.length)return;
+        if(pos >= input.length-1)return;
         if(input[pos] == 2){
             input[pos+1] += 1;
             input[pos] = 0;
@@ -90,16 +90,52 @@ public class LogicSolverDivideAndConquer {
 
 
     static short[][] solutionsForClause(short[] clause) {
-
-        short[][] solution = new short[clause.length*clause.length-1][clause.length];
+        short[][] solution = new short[0][clause.length];
         short[] bits = new short[clause.length];
 
-
-
-
-        return null;
-        // FIXME
+        for(int i = 0;i < bits.length*bits.length && bits[bits.length-1] != 2;i++){
+            short[] temp = new short[bits.length];
+            for(int j = 0; j < temp.length; j++){ //interpret bits into 1 and -1
+                if(bits[j] == 0)temp[j] = -1;
+                else temp[j] = 1;
+            }
+            if(satisfies(temp,clause)){
+                solution = appendToMatrix(solution,temp);
+            }
+            bits = getNextBit(bits);
+        }
+        return solution;
     }
+
+    static short[][] appendToMatrix(short[][] target,short[] array){ //target[0].length and array.length need to be the same
+        short[][] re = new short[target.length+1][array.length];
+        for(int i = 0; i < target.length+1; i++){
+            if(i == target.length){
+                re[i] = array;
+                break;
+            }
+            re[i] = target[i];
+        }
+        return re;
+    }
+
+     static short[][] merge(short[][] solution1,short[][] solution2) {
+         short[][] re = new short[][]{}; //resolution array returns nothing if no solution found
+
+         short[][] Z = solution1.clone();//current clause solutions
+         short[][] z = solution2.clone();//next clause to compare to
+
+         for (int j = 0; j < z.length; j++) { //for loops to  compare the first clause to the second
+             for (short[] ind : Z) {
+                 if (Arrays.equals(ind, z[j])) {
+                     re = appendToMatrix(re,ind);
+                 }
+             }
+         }
+         return re;
+     }
+
+
 
     static short[][] solveDivideAndConquer(short[][] formula) {
 
@@ -121,5 +157,4 @@ public class LogicSolverDivideAndConquer {
 
         return solution;
     }
-
 }
