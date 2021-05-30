@@ -102,8 +102,24 @@ public class LogicSolverDivideAndConquer {
     }
 
     static short[][] solveDivideAndConquer(short[][] formula) {
-        return null;
-        // FIXME
+
+        if(formula.length == 0)return new short[][]{};
+        short[][] solution = new short[0][formula[0].length];
+
+        if(formula.length == 1){ // return solution if there is no merging necessary
+            return solutionsForClause(formula[0]);
+        }
+
+        for(int i = 1;i < formula.length;i++){
+            if(i==1){ //get first two solutions and merge them
+                solution = merge(solutionsForClause(formula[0]),solutionsForClause(formula[1]));
+            }
+            else{ //merge the rest of the clauses with solution from before
+                solution = merge(solution,solutionsForClause(formula[i]));
+            }
+        }
+
+        return solution;
     }
 
 }
