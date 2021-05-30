@@ -19,7 +19,7 @@ public class LogicSolverBacktracking {
         return true;
     }
 
-    static boolean satisfiable(short[] assignment, short[] clause) { //consider this terribleness fixed
+    static boolean satisfiable(short[] assignment, short[] clause) {
         if(satisfies(assignment,clause)) return true;
         boolean res = false;
         short[] z = new short[assignment.length];
@@ -39,7 +39,6 @@ public class LogicSolverBacktracking {
                 z[i] = assignment[i];
                 Z[i] = assignment[i];
             }
-            System.out.println("z = " + z.toString());
             if(satisfies(z,clause) || satisfies(Z,clause)) res = true;
 
         }
@@ -73,5 +72,4 @@ public class LogicSolverBacktracking {
         }
         if(currentLevel == 0 && !satisfies(currentSolution,formula))Arrays.fill(currentSolution,(short) 0); //if final solution does not satisfy, fill array with 0
     }
-
 }

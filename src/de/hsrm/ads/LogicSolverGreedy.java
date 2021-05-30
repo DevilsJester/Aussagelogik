@@ -57,7 +57,6 @@ public class LogicSolverGreedy {
         short[] assignment = new short[formula[0].length];
 
         for(int i = 0; i < formula.length ; i++){ //iterate through all clauses of the formula
-
             for(int j = 0; j < assignment.length; j++){ //iterate through all variables of clauses
                 if(satisfies(assignment,formula[i]))continue;
                 if(formula[i][j] != 0 && assignment[j] == 0) assignment[j] = formula[i][j];
