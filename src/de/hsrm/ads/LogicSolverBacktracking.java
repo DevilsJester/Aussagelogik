@@ -1,4 +1,5 @@
 
+
 package de.hsrm.ads;
 
 import java.util.Arrays;
@@ -60,7 +61,6 @@ public class LogicSolverBacktracking {
         solveBacktracking(formula,0,solution);
         return solution;
     }
-
     static void solveBacktracking(short[][] formula, int currentLevel,short[] currentSolution) {
         if(currentLevel == formula[0].length)return; //abort if we exceed the max length of variables
 
