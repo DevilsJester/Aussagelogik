@@ -1,3 +1,4 @@
+
 package de.hsrm.ads;
 
 public class LogicSolverGreedy {
@@ -23,24 +24,24 @@ public class LogicSolverGreedy {
         boolean res = false;
         short[] z = new short[assignment.length];
         short[] Z = new short[assignment.length];
-    for(int i = 0, c = 0; i <clause.length; i++) {
-        if(assignment[i] == 0 && c == i) {
-            z[i] = 1;
-            Z[i] = -1;
-            c = 0;
-        }
-        if(assignment[i] == 0 && c != i) {
-            z[i] = -1;
-            Z[i] = 1;
-            c++;
-        }
-        if(assignment[i] != 0) {
-            z[i] = assignment[i];
-            Z[i] = assignment[i];
-        }
-        if(satisfies(z,clause) || satisfies(Z,clause)) res = true;
+        for(int i = 0, c = 0; i <clause.length; i++) {
+            if(assignment[i] == 0 && c == i) {
+                z[i] = 1;
+                Z[i] = -1;
+                c = 0;
+            }
+            if(assignment[i] == 0 && c != i) {
+                z[i] = -1;
+                Z[i] = 1;
+                c++;
+            }
+            if(assignment[i] != 0) {
+                z[i] = assignment[i];
+                Z[i] = assignment[i];
+            }
+            if(satisfies(z,clause) || satisfies(Z,clause)) res = true;
 
-    }
+        }
         return res;
     }
 
